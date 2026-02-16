@@ -8,23 +8,29 @@ logs_tab, tbd = st.tabs(["Logs", "tbd"])
 
 with logs_tab: 
     st.header('Logs Equations',text_alignment='center',divider=True)
-    st.text('Enter the base, exponent, and expression separated by commas')
-    st.header('Single Log')
-    equation = st.chat_input('Base, Exponent, Expression')
+    st.markdown('Enter values separated by commas (e.g., 2, 3, 8)')
 
+    st.header('Single Log')
+    equation = st.text_input('Base, Exponent, Expression')
+    
     if equation:
         try:
             parts = equation.split(',')
-            if len(parts) == 3:
-                base = float(parts[0].strip())
-                exponent = float(parts[1].strip())
-                expression = parts[2].strip()
-                result = single_log(base, exponent, expression)
-                st.text(f'Result: {result}')
-            else:
-                st.error('Please enter exactly 3 values separated by commas')
-        except ValueError:
-            st.error('Base and exponent must be numbers')
+            base = parts[0].strip()
+            exponent = parts[1].strip()
+            expression = parts[2].strip()
 
+            base = int(base) if base.isdigit() else base
+            exponent = int(exponent) if exponent.isdigit() else exponent
+            expression = sp.sympify(expression)
+
+            st.write(single_log(base, exponent, expression))
+            base = int(parts[0].strip())
+            exponent = int(parts[1].strip())
+            expression = int(parts[2].strip())
+            st.write(single_log(base, exponent, expression))
+        except (ValueError, IndexError):
+            print()
+        
 with tbd:
     st.header('Future Sections')
