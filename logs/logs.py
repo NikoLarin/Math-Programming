@@ -60,6 +60,7 @@ def natural_log_equation(e_exponent, exponent):
     equation = (sp.Eq(sp.ln(sp.E**(e_exponent)),sp.ln(exponent).evalf()))
     return print(sp.solve(equation,x))
 
-exponential_equation(6,4,3*x+1,5*x+2)
+
+
 
 
